@@ -99,6 +99,21 @@ class Banker():
             return 0  #return 0 as the account ID if the account could not be created
         io_wrapper.dis_connect(c)
 
+    def ViewAccounts(self,type):
+        c = io_wrapper.do_connect()
+        client_accounts = {}
+        banker_accounts = {}
+        if type.upper() == 'CLIENT':
+            client_accounts = io_wrapper.get_all_users(c[0],['client'])
+            return client_accounts
+        elif type.upper() == 'BANKER':
+            client_accounts = io_wrapper.get_all_users(c[0],['banker'])
+            return banker_accounts
+        else:
+            print("    LOG >> MODEL >> User type not recognized")
+            emptydict = {}
+            return emptydict
+        io_wrapper.dis_connect(c)
 
     def Deposit():
         pass

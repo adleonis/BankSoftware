@@ -20,7 +20,8 @@ def b_menu1():
     A.Create a Client Account (A)\n
     B.Make a Deposit to a Client Account (B)\n
     C.Withdraw from a Client Account (C)\n
-    D.Transfer funds from one account to another (D)\n    >>>''')
+    D.Transfer funds from one account to another (D)\n
+    E.Sign Off\n    >>>''')
     return user_input
 
 def b_checkvalidid():
@@ -28,7 +29,6 @@ def b_checkvalidid():
     return user_input
 
 def b_create_account(users):
-    print("\n    Our current clients ID's are:(hardcoded)\n    ",users)
     user_input = input('''\n    Please enter a valid User ID:  ''')
     return user_input
 

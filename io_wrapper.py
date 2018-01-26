@@ -17,6 +17,7 @@
 #               get_user_permission(c,ID)
 #               get_account_balance(c,ID)
 #               get_user_accounts(c,[ID])
+#               get_all_users(c,[permission_level])
 import traceback
 import sqlite3
 
@@ -220,7 +221,24 @@ def get_user_accounts(c,ID):
         return False
 #DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
 
+#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+def get_all_users(c,permission_level):
+# Permission level is of type list... [permission_level]  <--- ['Client'] or ['banker']
+# Returns: all user IDs of Clients type<[list]>
+#
+    try:
+        ans = c.execute('''SELECT id FROM users WHERE permission_level=? ORDER BY id;''',permission_level).fetchall()
+        accounts = []
+        for i in ans:
+            accounts.append(i[0])
+        return accounts
+    except:
+        print('''An error has occured trying to get data in the
+                USERS table of the DB: get_all_users''')
+        print(traceback.format_exc())
+        return False
 
+#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
 

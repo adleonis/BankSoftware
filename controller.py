@@ -22,30 +22,42 @@ def bank_interface():
                 #Progress to Client logic
                 print(' ')
             elif user_input.upper() in banker_input:
-                #Progress to Banker logic
-                #Accreditation
-                inA = view.b_checkvalidid()
-                b1 = model.Banker(inA)
+                def banker_loop(accreditation):
+                    #Progress to Banker logic
+                    if accreditation == 'U':
+                        #Accreditation
+                        inA = view.b_checkvalidid()
+                        b1 = model.Banker(inA)
                 
-                #Accredited Banker Options
-                in2 = view.b_menu1()
-                if in2 == 'A': #Create Client Account
-                    #TODO write a list_all_usersclients method in the bankerclass, and print results here
-                    users = ['1', '4', '5', '6', '8']
-                    in3 = view.b_create_account(users)
-                    if in3 in users: #create account
-                        initial_balance = view.b_create_account_setinitialbalance()
-                        c1 = b1.CreateAccount([in3, initial_balance])
-                    else:            #user ID invalid 
-                        print('    This user is not a client or does not exist')    
-                elif in2 == 'B': #Deposit into client account
-                     print('    Not yet Implemented ')
-                elif in2 == 'C': #Withdraw
-                     print('    Not yet implemented ')
-                elif in2 == 'D':  #Transfer
-                     print('    Not yet implemented ')
-                else:
-                    print("    >>> Invalid input")    
+                    #Accredited Banker Options
+                    in2 = view.b_menu1()
+                    if in2 == 'A': #Create Client Account FLOW
+                        #Show banker all the current users he can create accounts for
+                        users = b1.ViewAccounts('Client')
+                        print('    Choose from a Client User ID below:\n') 
+                        print('    ',users)
+                        in3 = view.b_create_account(users)
+                        if int(in3) in users: #create account
+                            initial_balance = view.b_create_account_setinitialbalance()
+                            c1 = b1.CreateAccount([in3, initial_balance])
+                        else:            #user ID invalid 
+                            print('    This user is not a client or does not exist')
+                        return in2    
+                    elif in2 == 'B': #Deposit into client account
+                        print('    Not yet Implemented ')
+                    elif in2 == 'C': #Withdraw
+                        print('    Not yet implemented ')
+                    elif in2 == 'D':  #Transfer
+                        print('    Not yet implemented ')
+                    elif in2 == 'E':  #SignOFF
+                        return in2
+                    else:
+                        print("    >>> Invalid input")    
+                banker_input = banker_loop('U') #unaccredited 
+                while banker_input.upper() != 'E':
+                    banker_input = banker_loop('A')  #accredited
+                print('    Good Bye')
+
             elif user_input.upper() in signout_input:
                 #Progress to Signout logic
                 print(' ')
